@@ -8,6 +8,8 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bruna.java.back.end.dto.UserDTO;
@@ -35,6 +37,14 @@ public class UserController {
 			}
 			return null;
 	}
+	
+	@PostMapping("/newUser")
+	public UserDTO inserir(@RequestBody UserDTO newUser) {
+		newUser.setDataCadastramento(new Date());
+		usuarios.add(newUser);
+		return newUser;		
+	}
+	
 	
 	@PostConstruct //@PostConstruct faz com que este método seja executado logo depois que o container inicializa a classe UserController.
 	public void initiateList() {
