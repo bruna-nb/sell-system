@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,6 +46,16 @@ public class UserController {
 		return newUser;		
 	}
 	
+	@DeleteMapping("/users/{cpf}")
+	public boolean deleteUserFiltro(@PathVariable String cpf) {
+			for(UserDTO userFilter:usuarios) {
+				if(userFilter.getCpf().equals(cpf)) {
+					usuarios.remove(userFilter);
+					return true;
+				}
+			}
+			return false;
+	}	
 	
 	@PostConstruct //@PostConstruct faz com que este método seja executado logo depois que o container inicializa a classe UserController.
 	public void initiateList() {
